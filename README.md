@@ -38,3 +38,7 @@
 # Create ssh
 `ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f /path/to/your_keyfile`
 `ssh-keygen -t rsa -b 4096 -f /path/to/your_keyfile`
+
+
+# Install Proxmox Debian 12
+`https://pve.proxmox.com/wiki/Install_Proxmox_VE_on_Debian_12_Bookworm`

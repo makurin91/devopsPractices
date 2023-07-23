@@ -15,29 +15,7 @@
   fix
   the problem, and then merge back into both main and develop.
 
-
-
-# Adding user [Linux]
-
-* Create user `sudo adduser username`
-* Give superuser privileges `sudo usermod -aG sudo username`
-* Open ssh config `sudo nano /etc/ssh/sshd_config` and enable PubkeyAuthentication, PasswordAuthentication. Disable - PermitRootLogin.
-* Restart ssh service `sudo service ssh restart`
-* Check status `sudo service ssh status`
-
-
-# Add ssh access for new user
-
-* create .ssh `mkdir -p /home/username/.ssh`
-* `chmod 700 /home/username/.ssh`
-* create auth file `touch /home/username/.ssh/authorized_keys`
-* `chmod 600 /home/username/.ssh/authorized_keys`
-* add ssh pub key `echo "PUB_KEY" >> /home/username/.ssh/authorized_keys`
-
-
-# Create ssh
-`ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f /path/to/your_keyfile`
-`ssh-keygen -t rsa -b 4096 -f /path/to/your_keyfile`
+  
 
 
 # Install Proxmox Debian 12
@@ -48,3 +26,21 @@
 * connect as a root user to the proxmox machine
 * `cd /var/lib/vz/template/iso/`
 * `wget {link for downloading ISO}`
+
+# Get Turnkey Jenkins template container
+
+`pveam update`
+`pveam available`
+`pveam available | grep jenkins`
+`pveam download local {link}`
+
+# Ufw
+
+* install ufw `apt install ufw`
+* allow all outgoing traffic `ufw default allow outgoing`
+* deny incoming traffic `ufw default deny incoming`
+* allow ssh 22 `ufw allow ssh`
+* allow 80  `ufw allow 80/tcp`
+* allow 443  `ufw allow 443/tcp`
+* activate ufw `ufw enable`
+* rules list `ufw status`

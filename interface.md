@@ -24,7 +24,7 @@ iface vmbr100 inet static
 # Another schema
 
 * Enable MASQUERADE
-`auto vmbr101
+`auto vmbr100
 iface vmbr100 inet static
         address 192.168.100.1
         netmask 255.255.255.0
@@ -36,13 +36,13 @@ iface vmbr100 inet static
         post-down iptables -t nat -D POSTROUTING -s '192.168.100.0/24' -o vmbr0 -j MASQUERADE`
 
 * enable forward ipv4 `nano /etc/sysctl.conf` add `net.ipv4.ip_forward=1`
-* Open VM and eidt `nano /etc/netplan/00-installer-config.yaml`
+* Open VM and edit `nano /etc/netplan/00-installer-config.yaml`
 * Example 
 `network:
    ethernets:
       ens18:
         addresses:
-          - 192.168.100.11/24
+          - 192.168.100.10/24
         gateway4: 192.168.100.1
         nameservers
           addresses: [8.8.8.8, 8.8.4.4]

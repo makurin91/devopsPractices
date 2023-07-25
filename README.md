@@ -15,32 +15,4 @@
   fix
   the problem, and then merge back into both main and develop.
 
-  
 
-
-# Install Proxmox Debian 12
-`https://pve.proxmox.com/wiki/Install_Proxmox_VE_on_Debian_12_Bookworm`
-
-
-# Install ISO for proxmox
-* connect as a root user to the proxmox machine
-* `cd /var/lib/vz/template/iso/`
-* `wget {link for downloading ISO}`
-
-# Get Turnkey Jenkins template container
-
-`pveam update`
-`pveam available`
-`pveam available | grep jenkins`
-`pveam download local {link}`
-
-# Ufw
-
-* install ufw `apt install ufw`
-* allow all outgoing traffic `ufw default allow outgoing`
-* deny incoming traffic `ufw default deny incoming`
-* allow ssh 22 `ufw allow ssh`
-* allow 80  `ufw allow 80/tcp`
-* allow 443  `ufw allow 443/tcp`
-* activate ufw `ufw enable`
-* rules list `ufw status`

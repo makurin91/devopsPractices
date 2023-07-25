@@ -18,3 +18,5 @@
 # Install Cloud-init
 * Update `apt-get update`
 * Install cloud init `apt-get install cloud-init`
+* Check init logs output `cat /var/log/cloud-init-output.log`
+* Check init logs `cat /var/log/cloud-init.log`

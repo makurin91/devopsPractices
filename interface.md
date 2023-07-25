@@ -38,16 +38,26 @@ iface vmbr100 inet static
 * enable forward ipv4 `nano /etc/sysctl.conf` add `net.ipv4.ip_forward=1`
 * Open VM and edit `nano /etc/netplan/00-installer-config.yaml`
 * Example 
-`network:
-   ethernets:
-      ens18:
-        addresses:
-          - 192.168.100.10/24
-        gateway4: 192.168.100.1
-        nameservers
-          addresses: [8.8.8.8, 8.8.4.4]
-        optional: true
-      version: 2
-      renderer: networkd`
+```
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens18:
+      addresses:
+        - 192.168.100.10/24
+      routes:
+        - to: 0.0.0.0/0
+          via: 192.168.100.1
+      nameservers:
+        addresses: [8.8.8.8]
+      optional: true
+```
+* Enable netplan `netplan apply`
 * Add rule for host proxmox
 `iptables -t nat -A PREROUTING -p tcp -d {white_ip} --dport 4410 -i vmbr0 -j DNAT --to-destination 192.168.100.10:22`
+
+* Check iptables `iptables -t nat -L`
+
+* Rule for containers
+`iptables -t nat -A PREROUTING -p tcp -d {host_white_ip} --dport 4410 -i vmbr0 -j DNAT --to-destination {container_ip}:22`

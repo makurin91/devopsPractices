@@ -13,3 +13,8 @@
 `pveam available`
 `pveam available | grep jenkins`
 `pveam download local {link}`
+
+
+# Install Cloud-init
+* Update `apt-get update`
+* Install cloud init `apt-get install cloud-init`

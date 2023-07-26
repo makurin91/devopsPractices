@@ -4,6 +4,7 @@
 * shown interfaces `ip link show`
 * add interface `ip link add name eth1 type dummy`
 * activate interface `ip link set eth1 up`
+* delete interface `ip link set enp0s18 down`
 
 # Add Linux bridge
 
@@ -21,9 +22,9 @@ iface vmbr100 inet static
 
 
 
-# Another schema
+# Make NAT
 
-* Enable MASQUERADE
+* Enable MASQUERADE on the proxmox
 `auto vmbr100
 iface vmbr100 inet static
         address 192.168.100.1
@@ -36,6 +37,8 @@ iface vmbr100 inet static
         post-down iptables -t nat -D POSTROUTING -s '192.168.100.0/24' -o vmbr0 -j MASQUERADE`
 
 * enable forward ipv4 `nano /etc/sysctl.conf` add `net.ipv4.ip_forward=1`
+
+[Ubuntu]
 * Open VM and edit `nano /etc/netplan/00-installer-config.yaml`
 * Example 
 ```
@@ -54,13 +57,44 @@ network:
       optional: true
 ```
 * Enable netplan `netplan apply`
+
+[Debian]
+```
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+    address 192.168.100.11
+    netmask 255.255.255.0
+    gateway 192.168.100.1
+    dns-nameservers 8.8.8.8
+    up route add -net 0.0.0.0/0 gw 192.168.100.1
+```
+* Go to `sudo nano /etc/network/cloud-ifupdown-helper` and add `exit 0`
+* and reboot `sudo reboot`
+* add nameserver to the `sudo nano /etc/resolv.conf`  -> `nameserver 8.8.8.8`
+
+
 * Add rule for host proxmox
 `iptables -t nat -A PREROUTING -p tcp -d {white_ip} --dport 4410 -i vmbr0 -j DNAT --to-destination 192.168.100.10:22`
-
 * Check iptables `iptables -t nat -L`
 * Check iptables `iptables -t nat -L -n`
 * All rules with  PREROUTING and number of lines: `iptables -t nat -L PREROUTING --line-numbers`
 * Deleting if needed `iptables -t nat -D PREROUTING {number}`
+* Save iptable `iptables-save`
 
-* Rule for containers
-`iptables -t nat -A PREROUTING -p tcp -d {host_white_ip} --dport 4410 -i vmbr0 -j DNAT --to-destination {container_ip}:22`
+
+
+### Networking
+
+`sudo systemctl status systemd-networkd`
+`sudo systemctl mask systemd-networkd`
+`sudo systemctl status networking`
+
+### Resolver
+
+`systemd-resolve --status` or `resolvectl status`
+`sudo nano /etc/systemd/resolved.conf`
+`sudo nano /etc/resolv.conf`
+`sudo systemctl restart systemd-resolved`

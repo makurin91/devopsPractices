@@ -59,6 +59,7 @@ network:
 * Enable netplan `netplan apply`
 
 [Debian]
+edit interfaces file `nano /etc/network/interfaces.d/`
 ```
 auto lo
 iface lo inet loopback

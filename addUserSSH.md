@@ -19,3 +19,7 @@
 # Create ssh
 `ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f /path/to/your_keyfile`
 `ssh-keygen -t rsa -b 4096 -f /path/to/your_keyfile`
+
+# Add known_hosts
+`touch ~/.ssh/known_hosts`
+`ssh-keyscan hostname >> ~/.ssh/known_hosts`

@@ -10,8 +10,8 @@
 * edit interfaces file `nano /etc/network/interfaces`
 `auto vmbr100
 iface vmbr100 inet static
-        address 51.119.126.217/24
-        gateway 51.119.126.1
+        address 11.122.133.227/24
+        gateway 11.122.133.1
         bridge-ports eth1
         bridge-stp off
         bridge-fd 0`
@@ -58,6 +58,9 @@ network:
 `iptables -t nat -A PREROUTING -p tcp -d {white_ip} --dport 4410 -i vmbr0 -j DNAT --to-destination 192.168.100.10:22`
 
 * Check iptables `iptables -t nat -L`
+* Check iptables `iptables -t nat -L -n`
+* All rules with  PREROUTING and number of lines: `iptables -t nat -L PREROUTING --line-numbers`
+* Deleting if needed `iptables -t nat -D PREROUTING {number}`
 
 * Rule for containers
 `iptables -t nat -A PREROUTING -p tcp -d {host_white_ip} --dport 4410 -i vmbr0 -j DNAT --to-destination {container_ip}:22`

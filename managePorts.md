@@ -8,3 +8,8 @@
 * allow 443  `ufw allow 443/tcp`
 * activate ufw `ufw enable`
 * rules list `ufw status`
+
+
+# Netstat
+
+* shown allow ports `netstat -tuln`

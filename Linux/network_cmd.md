@@ -11,6 +11,8 @@ sudo apt-get install net-tools
 
 
 * Checking the speed and duplex mode of the network card `sudo ethtool eth0` or `sudo mii-tool eth0`
+* Add Duplex and speed `sudo ethtool -s eth0 speed 100 duplex full`
+* 
 
 [Checking network bandwidth]
 

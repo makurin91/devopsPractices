@@ -23,3 +23,13 @@
 # Add known_hosts
 `touch ~/.ssh/known_hosts`
 `ssh-keyscan hostname >> ~/.ssh/known_hosts`
+
+
+
+# Add user with auto creating directories
+`adduser username && usermod -aG sudo username`
+`ssh-copy-id -i ~/.ssh/*.pub <username>@<remote_host>`
+
+
+# Delete user
+`sudo deluser --remove-home username`

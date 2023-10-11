@@ -1,0 +1,8 @@
+---
+
+ mysql_root_password: root
+
+ mysql_users:
+      - name: mysql
+        pass: mysql
+        priv: "*.*:ALL,GRANT"

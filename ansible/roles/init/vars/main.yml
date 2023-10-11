@@ -1,0 +1,2 @@
+# CentOS, Debian, Ubuntu
+ansible_distribution: "Debian"
